@@ -2,33 +2,69 @@
 
 **Deterministic authority and orchestration for a physical environment.**
 
-The Nest knows what environment exists, who is acting, what they are allowed to do, which capability can satisfy a request and what evidence came back from execution.
+**Public beta: v0.1**
+
+The Nest is a working reference implementation of the environment-authority layer behind a larger private physical-AI system.
 
 A language model may interpret intent. It does not become the authority.
 
 > **Interpretation is a proposal. Permission, execution and evidence belong to The Nest.**
 
-The name is a subtle pop-culture nod. The implementation and branding are original and unaffiliated with any entertainment franchise.
+The Nest owns the parts that must stay deterministic and inspectable:
 
-## v0.1 candidate
+- trusted execution context;
+- identity and policy;
+- capabilities and resources;
+- state;
+- bounded execution;
+- typed outcomes and evidence;
+- persistence.
 
-This candidate uses synthetic users and simulated resources only.
+## Why this exists
 
+The project evolved from a practical problem.
+
+A homelab became home automation. Home automation needed better control surfaces. Voice made the interaction natural, but it exposed a trust problem: a probabilistic assistant should not be allowed to invent identity, permissions, physical state or proof that an action happened.
+
+That led to a hard boundary:
+
+```text
+assistant / model interpretation
+          |
+          v
+        The Nest
+ identity -> policy -> capability -> execution -> evidence
+          |
+          v
+      environment
 ```
+
+The assistant can ask. The Nest decides.
+
+## What the public beta demonstrates
+
+The v0.1 path is intentionally synthetic and reproducible:
+
+```text
 HTTP request
  -> trusted fixture subject
  -> deterministic policy
  -> capability resolution
  -> simulated execution
- -> typed evidence/outcome
+ -> typed evidence / outcome
  -> SQLite persistence
 ```
 
-Outcomes: `SUCCESS`, `DENIED`, `CLARIFICATION_REQUIRED`, `FAILED`, `UNCERTAIN`, `UNSUPPORTED`.
+Supported outcome classes include:
 
-## Run
+- `SUCCESS`
+- `DENIED`
+- `CLARIFICATION_REQUIRED`
+- `FAILED`
+- `UNCERTAIN`
+- `UNSUPPORTED`
 
-Requires Node.js 22+.
+Run it with Node.js 22+:
 
 ```sh
 npm test
@@ -38,30 +74,63 @@ npm start
 
 The server binds to `127.0.0.1` by default.
 
-## Fixture policy
+## What this architecture achieved
 
-- `ADMIN` can use all fixture capabilities.
-- `STANDARD_USER` can use fixture light control and reads.
-- `RESTRICTED_USER` can read presence but cannot control lights.
-- unknown actors fail closed.
+The private system and this public reference share the same design intent:
 
-The public demo contains no household identities, real devices, private topology or live Home Assistant writes.
+- probabilistic interpretation cannot grant itself permission;
+- unknown identity fails closed;
+- unavailable observation is represented as `UNCERTAIN`, not optimistic prose;
+- execution results are returned as typed evidence/outcomes;
+- assistant UX remains portable because environment authority is separate;
+- the same contract can be exercised by text, voice or future device endpoints.
+
+The public beta uses synthetic identities and resources so the trust model can be inspected without exposing household topology or credentials.
+
+## Human technical ownership
+
+The architecture was human-defined.
+
+The human owner is responsible for:
+
+- deciding the trust boundary between interpretation and authority;
+- defining identity/policy/capability semantics;
+- deciding what evidence is sufficient for each action;
+- integrating and validating new capability adapters;
+- rejecting model-generated shortcuts that violate the authority boundary;
+- deciding when fixture evidence is insufficient and live/physical verification is required.
+
+AI-assisted implementation is used as engineering labor, not as a substitute for ownership or acceptance.
+
+## R&D direction
+
+Ongoing private R&D explores:
+
+- Home Assistant and device integration;
+- presence and identity signals;
+- network/media/environment capabilities;
+- voice and mobile endpoints;
+- physical sensors and cameras;
+- policy and evidence models;
+- safe automation creation;
+- deployment and observability.
+
+New integrations are added only when they preserve the core authority model.
 
 ## Relationship to Marinka
 
-Marinka is portable assistant runtime. The Nest is environment authority.
+[Marinka](https://github.com/EvgenVLG/marinka-assistant) is the portable assistant runtime.
 
 > **Marinka asks. The Nest decides.**
 
-The versioned assistant contract is in `contracts/nest-assistant-v1.json`.
+The shared versioned contract is in `contracts/nest-assistant-v1.json`.
 
 ## Status
 
-Candidate, not yet a public release. Live authentication, real device writes, clean-room qualification and licensing remain separate gates.
+This repository is a **working public beta v0.1 reference implementation**.
 
-## Related projects
+It is intentionally smaller than the private system and contains no real household identities, device bindings, private topology, credentials or raw telemetry.
 
-- [Marinka](https://github.com/EvgenVLG/marinka-assistant) — portable assistant that can connect to a Nest instance.
-- [Production Zoo](https://github.com/EvgenVLG/production-zoo) — AI engineering production workflow used to build and verify the ecosystem.
+## Related project
 
-The repositories are independently runnable. The Nest does not require Marinka or Production Zoo.
+[Production Zoo](https://github.com/EvgenVLG/production-zoo) documents the controlled AI-engineering workflow used to build and verify systems like The Nest, including case studies on wrong-property testing and evidence-driven validation.

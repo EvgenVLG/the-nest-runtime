@@ -1,7 +1,8 @@
 {
   "name": "the-nest-runtime",
-  "version": "0.1.0-candidate",
+  "version": "0.1.0-beta.1",
   "private": true,
+  "description": "Deterministic authority and orchestration for a physical environment.",
   "type": "module",
   "engines": {
     "node": ">=22"
