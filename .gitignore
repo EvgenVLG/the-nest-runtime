@@ -1,0 +1,5 @@
+node_modules/
+nest.sqlite
+nest.sqlite-shm
+nest.sqlite-wal
+.DS_Store

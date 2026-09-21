@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "name": "nest-assistant-contract",
+  "request": {
+    "required": [
+      "actor",
+      "capability"
+    ],
+    "optional": [
+      "resource",
+      "params",
+      "correlation_id"
+    ]
+  },
+  "outcome": {
+    "states": [
+      "SUCCESS",
+      "DENIED",
+      "CLARIFICATION_REQUIRED",
+      "FAILED",
+      "UNCERTAIN",
+      "UNSUPPORTED"
+    ],
+    "evidence_required_for": [
+      "SUCCESS",
+      "FAILED",
+      "UNCERTAIN"
+    ]
+  },
+  "rule": "Assistant interpretation is a proposal; environment authority decides execution."
+}
