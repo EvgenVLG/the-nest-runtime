@@ -58,3 +58,10 @@ The versioned assistant contract is in `contracts/nest-assistant-v1.json`.
 ## Status
 
 Candidate, not yet a public release. Live authentication, real device writes, clean-room qualification and licensing remain separate gates.
+
+## Related projects
+
+- [Marinka](https://github.com/EvgenVLG/marinka-assistant) — portable assistant that can connect to a Nest instance.
+- [Production Zoo](https://github.com/EvgenVLG/production-zoo) — AI engineering production workflow used to build and verify the ecosystem.
+
+The repositories are independently runnable. The Nest does not require Marinka or Production Zoo.
