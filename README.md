@@ -125,6 +125,12 @@ New integrations are added only when they preserve the core authority model.
 
 The shared versioned contract is in `contracts/nest-assistant-v1.json`.
 
+## October 2026 update
+
+Current private R&D is exercising the same authority/evidence model across direct actions, multi-step work, scheduled actions, automation creation, capability gaps, and proactive suggestions.
+
+See the [October 2026 R&D snapshot](docs/OCTOBER_2026_RND.md) for the current integration boundary and what this project demonstrates for systems/AI integration roles.
+
 ## Status
 
 This repository is a **working public beta v0.1 reference implementation**.
