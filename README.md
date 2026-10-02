@@ -1,5 +1,7 @@
 # The Nest
 
+> [Engineering portfolio map](https://github.com/EvgenVLG/test-rep) - quick recruiter-facing index of the public projects and what each one demonstrates.
+
 **Deterministic authority and orchestration for a physical environment.**
 
 **Public beta: v0.1**
